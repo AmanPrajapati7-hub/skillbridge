@@ -16,6 +16,10 @@ import CreateGig from './pages/CreateGig';
 import Orders from './pages/Orders';
 import Chat from './pages/Chat';
 import Profile from './pages/Profile';
+import HelpCenter from './pages/HelpCenter';
+import ContactUs from './pages/ContactUs';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import ScrollToTop from './components/ScrollToTop';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -26,7 +30,8 @@ const ProtectedRoute = ({ children }) => {
 function App() {
   return (
     <BrowserRouter>
-      <Toaster position="top-center" />
+    <ScrollToTop />
+    <Toaster position="top-center" />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -41,7 +46,9 @@ function App() {
         <Route path="/buyer/dashboard" element={<ProtectedRoute><BuyerDashboard /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/profile/:id" element={<Profile />} />
-        
+        <Route path="/help" element={<HelpCenter />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
       </Routes>
       <Footer />
     </BrowserRouter>

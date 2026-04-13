@@ -59,12 +59,19 @@ const Navbar = () => {
             </Link>
 
             <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-green-600 font-bold text-lg hover:bg-gray-100 transition"
+              <button onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-green-600 font-bold text-lg hover:bg-gray-100 transition overflow-hidden"
               >
-                {user.name?.[0]?.toUpperCase()}
-              </button>
+                {user.profilePic ? (
+                    <img
+                    src={user.profilePic}
+                    alt={user.name}
+                    className="w-10 h-10 rounded-full object-cover"
+                    />
+                ) : (
+                    user.name?.[0]?.toUpperCase()
+                    )}
+             </button>
 
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 z-50">
