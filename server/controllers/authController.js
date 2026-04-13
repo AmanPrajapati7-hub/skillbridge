@@ -92,4 +92,33 @@ const getMe = async (req, res) => {
   res.json(req.user);
 };
 
-module.exports = { registerUser, loginUser, logoutUser, getMe };
+const updateProfile = async (req, res) => {
+  try {
+    const { name, description, skills, profilePic } = req.body;
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      { 
+        name: name,
+        description: description,
+        skills: skills,
+        profilePic: profilePic
+      },
+      { new: true }
+    ).select('-password');
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select('-password');
+    if (!user) return res.status(404).json({ message: 'User not found!' });
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { registerUser, loginUser, logoutUser, getMe, updateProfile, getUserById };

@@ -1,11 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser, loginUser, logoutUser, getMe } = require('../controllers/authController');
+const { 
+  registerUser, 
+  loginUser, 
+  logoutUser, 
+  getMe, 
+  updateProfile, 
+  getUserById 
+} = require('../controllers/authController');
 const { protect } = require('../middleware/authMiddleware');
 
-router.post('/register', registerUser);  // Signup
-router.post('/login', loginUser);        // Login
-router.post('/logout', logoutUser);      // Logout
-router.get('/me', protect, getMe);       // Apni profile dekho
+router.post('/register', registerUser);
+router.post('/login', loginUser);
+router.post('/logout', logoutUser);
+router.get('/me', protect, getMe);
+router.put('/update', protect, updateProfile);
+router.get('/user/:id', getUserById);
 
 module.exports = router;

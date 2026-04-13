@@ -68,11 +68,24 @@ const GigDetail = () => {
           <h1 className="text-3xl font-bold text-gray-800 mb-4">{gig.title}</h1>
 
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold">
-              {gig.seller?.name?.[0]}
-            </div>
+            <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold cursor-pointer hover:opacity-80 transition"
+             onClick={() => navigate(`/profile/${gig.seller?._id}`)}
+            >
+             {gig.seller?.profilePic ? (
+            <img 
+            src={gig.seller.profilePic}alt={gig.seller.name}
+            className="w-10 h-10 rounded-full object-cover"
+            />
+         ) : (
+             gig.seller?.name?.[0]
+             )}
+        </div>
             <div>
-              <p className="font-semibold text-gray-800">{gig.seller?.name}</p>
+              <p className="font-semibold text-gray-800 cursor-pointer hover:text-green-600 transition"
+                 onClick={() => navigate(`/profile/${gig.seller?._id}`)}
+            >
+             {gig.seller?.name}
+            </p>
               <p className="text-sm text-yellow-500">★ {gig.rating?.toFixed(1) || '0.0'} ({gig.totalReviews} reviews)</p>
             </div>
           </div>
@@ -95,9 +108,19 @@ const GigDetail = () => {
               reviews.map((r) => (
                 <div key={r._id} className="border-b border-gray-100 py-4">
                   <div className="flex items-center gap-2 mb-1">
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">
-                      {r.buyer?.name?.[0]}
-                    </div>
+                    <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-sm overflow-hidden cursor-pointer"
+                    onClick={() => navigate(`/profile/${gig.seller?._id}`)}
+                    >
+                 {gig.seller?.profilePic ? (
+                    <img
+                    src={gig.seller.profilePic}
+                    alt={gig.seller.name}
+                    className="w-8 h-8 rounded-full object-cover"
+                     />
+                 ) : (
+                    gig.seller?.name?.[0]
+                 )}
+                </div>
                     <span className="font-medium text-gray-700">{r.buyer?.name}</span>
                     <span className="text-yellow-500 text-sm">{'★'.repeat(r.rating)}</span>
                   </div>

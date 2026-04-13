@@ -17,10 +17,11 @@ const createGig = async (req, res) => {
 // Saari gigs dekho (buyer browse kare)
 const getAllGigs = async (req, res) => {
   try {
-    const { category, search } = req.query;
+    const { category, search, seller } = req.query;
     let filter = {};
     if (category) filter.category = category;
     if (search) filter.title = { $regex: search, $options: 'i' };
+    if (seller) filter.seller = seller;
     const gigs = await Gig.find(filter).populate('seller', 'name profilePic rating');
     res.json(gigs);
   } catch (error) {

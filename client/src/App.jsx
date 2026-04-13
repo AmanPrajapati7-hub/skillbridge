@@ -15,6 +15,7 @@ import BuyerDashboard from './pages/BuyerDashboard';
 import CreateGig from './pages/CreateGig';
 import Orders from './pages/Orders';
 import Chat from './pages/Chat';
+import Profile from './pages/Profile';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -38,6 +39,9 @@ function App() {
         <Route path="/seller/dashboard" element={<ProtectedRoute><SellerDashboard /></ProtectedRoute>} />
         <Route path="/seller/create-gig" element={<ProtectedRoute><CreateGig /></ProtectedRoute>} />
         <Route path="/buyer/dashboard" element={<ProtectedRoute><BuyerDashboard /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/profile/:id" element={<Profile />} />
+        
       </Routes>
       <Footer />
     </BrowserRouter>
