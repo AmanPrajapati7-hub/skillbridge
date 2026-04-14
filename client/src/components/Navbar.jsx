@@ -57,6 +57,9 @@ const Navbar = () => {
             <Link to="/orders" className="text-white font-medium hover:opacity-80">
               Orders
             </Link>
+            <Link to="/messages" className="text-white font-medium hover:opacity-80"> 
+            Messages
+            </Link>
 
             <div className="relative" ref={dropdownRef}>
               <button onClick={() => setDropdownOpen(!dropdownOpen)}

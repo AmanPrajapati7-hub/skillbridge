@@ -20,6 +20,7 @@ import HelpCenter from './pages/HelpCenter';
 import ContactUs from './pages/ContactUs';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import ScrollToTop from './components/ScrollToTop';
+import Messages from './pages/Messages';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -49,6 +50,7 @@ function App() {
         <Route path="/help" element={<HelpCenter />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/messages" element={<ProtectedRoute><Messages /></ProtectedRoute>} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -27,4 +27,32 @@ const getMessages = async (req, res) => {
   }
 };
 
-module.exports = { sendMessage, getMessages };
+const getConversations = async (req, res) => {
+  try {
+    const messages = await Message.find({
+      $or: [
+        { sender: req.user._id },
+        { receiver: req.user._id }
+      ]
+    })
+    .populate('sender', 'name profilePic')
+    .populate('receiver', 'name profilePic')
+    .sort({ createdAt: -1 });
+
+    const seen = new Set();
+    const conversations = messages.filter(msg => {
+      const otherId = msg.sender._id.toString() === req.user._id.toString()
+        ? msg.receiver._id.toString()
+        : msg.sender._id.toString();
+      if (seen.has(otherId)) return false;
+      seen.add(otherId);
+      return true;
+    });
+
+    res.json(conversations);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { sendMessage, getMessages, getConversations };

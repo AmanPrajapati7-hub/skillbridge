@@ -154,21 +154,28 @@ const GigDetail = () => {
               <p className="text-sm text-gray-600">{gig.description?.substring(0, 100)}...</p>
             </div>
 
-            <button
-              onClick={handleOrder}
-              disabled={ordering}
-              style={{ backgroundColor: '#1DBF73' }}
-              className="w-full text-white font-semibold py-3 rounded-lg hover:opacity-90 transition mb-3"
-            >
-              {ordering ? 'Placing Order...' : 'Continue (₹' + gig.price + ')'}
-            </button>
-
-            <button
-              onClick={() => navigate(`/chat/${gig.seller?._id}`)}
-              className="w-full border-2 border-green-500 text-green-600 font-semibold py-3 rounded-lg hover:bg-green-50 transition"
-            >
-              Contact Seller
-            </button>
+            {user && user._id === gig.seller?._id ? (
+  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
+    <p className="text-yellow-700 font-medium">It's your own gig</p>
+  </div>
+) : (
+  <>
+    <button
+      onClick={handleOrder}
+      disabled={ordering}
+      style={{ backgroundColor: '#1DBF73' }}
+      className="w-full text-white font-semibold py-3 rounded-lg hover:opacity-90 transition mb-3"
+    >
+      {ordering ? 'Placing Order...' : 'Continue (₹' + gig.price + ')'}
+    </button>
+    <button
+      onClick={() => navigate(`/chat/${gig.seller?._id}`)}
+      className="w-full border-2 border-green-500 text-green-600 font-semibold py-3 rounded-lg hover:bg-green-50 transition"
+    >
+      Contact Seller
+    </button>
+  </>
+)}
           </div>
         </div>
       </div>
